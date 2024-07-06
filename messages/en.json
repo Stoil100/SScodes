@@ -1,4 +1,27 @@
 {
+"Auth":{
+    "headerRegister": "Register your account",
+    "headerLogin": "Login to your account",
+    "usingSocialNetworks": "Using social networks",
+    "orWith": "Or with",
+    "emailPlaceholder": "Enter your Email here...",
+    "passwordPlaceholder": "Enter your password here...",
+    "confirmPasswordPlaceholder": "Confirm your password here...",
+    "alreadyHaveAccount": "Already have an account?",
+    "doNotHaveAccount": "Don't have an account?",
+    "loginHere": "Login here",
+    "registerHere": "Register here",
+    "submit": "Submit",
+    "emailValidation": "Please enter a valid email address.",
+    "passwordUppercaseError": "One uppercase character",
+    "passwordLowercaseError": "One lowercase character",
+    "passwordNumberError": "One number",
+    "passwordSpecialCharacterError": "One special character",
+    "passwordMinLengthError": "Must be at least 8 characters in length",
+    "passwordsMismatchError": "The passwords did not match",
+    "toggleVisibility": "Toggle visibility",
+    "errorMessage": "Error"
+},
     "Common": {
         "languages": {
             "bg": "BG",

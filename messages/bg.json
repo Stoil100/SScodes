@@ -1,4 +1,27 @@
 {
+    "Auth": {
+        "headerRegister": "Регистрирайте своя профил",
+        "headerLogin": "Влезте в своя профил",
+        "usingSocialNetworks": "Чрез социални мрежи",
+        "orWith": "Или с",
+        "emailPlaceholder": "Въведете своя имейл тук...",
+        "passwordPlaceholder": "Въведете своята парола тук...",
+        "confirmPasswordPlaceholder": "Потвърдете своята парола тук...",
+        "alreadyHaveAccount": "Вече имате профил?",
+        "doNotHaveAccount": "Нямате профил?",
+        "loginHere": "Вход тук",
+        "registerHere": "Регистрация тук",
+        "submit": "Изпрати",
+        "emailValidation": "Моля, въведете валиден имейл адрес.",
+        "passwordUppercaseError": "Един главен знак",
+        "passwordLowercaseError": "Един малък знак",
+        "passwordNumberError": "Една цифра",
+        "passwordSpecialCharacterError": "Един специален знак",
+        "passwordMinLengthError": "Трябва да бъде поне 8 знака",
+        "passwordsMismatchError": "Паролите не съвпадат",
+        "toggleVisibility": "Превключи видимостта",
+        "errorMessage": "Грешка"
+    },
     "Common": {
         "languages": {
             "bg": "БГ",
