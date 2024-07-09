@@ -24,7 +24,7 @@ type FormVariant = {
 };
 
 const AuthForm = ({ variant = "register" }: FormVariant) => {
-    const t = useTranslations("Auth");
+    const t = useTranslations("Schemes.Auth");
     const formSchema = z
         .object({
             email: z.string().email({ message: t("emailValidation") }),
@@ -35,7 +35,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                 .regex(/.*\d.*/, t("passwordNumberError"))
                 .regex(
                     /.*[`~<>?,./!@#$%^&*()\-_+=\"'|{}[\];:\\].*/,
-                    t("passwordSpecialCharacterError"),
+                    t("passwordSpecialCharacterError")
                 )
                 .min(8, t("passwordMinLengthError")),
             ...(variant === "register" && {
@@ -68,26 +68,26 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
         setIsLoading(true);
         try {
             if (variant === "register") {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
+                const response = await fetch("/api/auth/register", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         email: values.email,
                         password: values.password,
-                        name: values.email.split('@')[0], // Assuming name is part of the email
+                        name: values.email.split("@")[0], // Assuming name is part of the email
                     }),
                 });
 
                 if (!response.ok) {
                     const data = await response.json();
-                    setError(data.message || 'An error occurred');
+                    setError(data.message || "An error occurred");
                     setIsLoading(false);
                     return;
                 }
             } else {
-                const result = await signIn('credentials', {
+                const result = await signIn("credentials", {
                     redirect: false,
                     email: values.email,
                     password: values.password,
@@ -99,9 +99,9 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                     return;
                 }
             }
-            router.push('/');
+            router.push("/");
         } catch (error) {
-            console.error('Error:', error);
+            console.error("Error:", error);
         }
         setIsLoading(false);
     };
@@ -117,7 +117,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
             <div className="flex gap-3">
                 <Button
                     className="size-[50px] rounded-full bg-[#25ba9e] p-3 transition-all duration-300 hover:scale-110 hover:bg-[#389181]"
-                    onClick={() => signIn('google', { redirectTo: "/profile" })}
+                    onClick={() => signIn("google", { redirectTo: "/profile" })}
                     disabled={isLoading}
                     type="button"
                 >
@@ -125,7 +125,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                 </Button>
                 <Button
                     className="size-[50px] rounded-full bg-[#25ba9e] p-0 transition-all duration-300 hover:scale-110 hover:bg-[#389181]"
-                    onClick={() => signIn('github', { redirectTo: "/profile" })}
+                    onClick={() => signIn("github", { redirectTo: "/profile" })}
                     disabled={isLoading}
                     type="button"
                 >
@@ -167,7 +167,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                                         <Input
                                             type={visible ? "text" : "password"}
                                             placeholder={t(
-                                                "passwordPlaceholder",
+                                                "passwordPlaceholder"
                                             )}
                                             {...field}
                                         />
@@ -199,7 +199,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                                                         : "password"
                                                 }
                                                 placeholder={t(
-                                                    "confirmPasswordPlaceholder",
+                                                    "confirmPasswordPlaceholder"
                                                 )}
                                                 {...field}
                                                 value={field.value as string}

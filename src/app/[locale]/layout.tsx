@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { getMessages } from "next-intl/server";
 import { Navigation } from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
     title: "Stoil Portfolio",
@@ -23,9 +24,10 @@ export default async function LocaleLayout({
             <head />
             <body className="font-sans">
                 <NextIntlClientProvider messages={messages} locale={locale}>
-                    <main>
+                    <main className="bg-[#0f0f0f] min-h-screen">
                         <Navigation />
                         {children}
+                        <Footer/>
                     </main>
                 </NextIntlClientProvider>
             </body>
