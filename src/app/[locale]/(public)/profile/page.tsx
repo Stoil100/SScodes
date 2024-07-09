@@ -11,11 +11,16 @@ export default async function ProfilePage() {
     }
 
     return (
-        <main>
+        <main className="w-full flex justify-center items-center px-4 py-6">
             {
                 //@ts-ignore
                 session.user!.admin! ? (
-                    <ProjectsForm />
+                    <section className="w-full space-y-6">
+                        <h2 className="text-center text-6xl font-bold text-white">
+                            Upload projects:
+                        </h2>
+                        <ProjectsForm />
+                    </section>
                 ) : (
                     <div>
                         <p>Well, there was no point in that... or was there?</p>

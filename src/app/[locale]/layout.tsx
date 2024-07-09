@@ -24,8 +24,8 @@ export default async function LocaleLayout({
             <head />
             <body className="font-sans">
                 <NextIntlClientProvider messages={messages} locale={locale}>
-                    <main className="bg-[#0f0f0f] min-h-screen">
-                        <Navigation />
+                    <main className="bg-[#0f0f0f] min-h-screen flex flex-col justify-between">
+                        {/* <Navigation /> */}
                         {children}
                         <Footer/>
                     </main>

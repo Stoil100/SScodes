@@ -107,8 +107,8 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center gap-3 font-openSans">
-            <h3 className="z-10 text-center font-playfairDSC text-4xl font-bold capitalize text-[#205041]">
+        <div className="flex flex-col items-center justify-center gap-3 font-openSans rounded-xl text-white">
+            <h3 className="z-10 text-center font-playfairDSC text-4xl font-bold capitalize text-[#90e0ef]">
                 {variant === "register"
                     ? t("headerRegister")
                     : t("headerLogin")}
@@ -116,7 +116,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
             <p className="w-full text-center">{t("usingSocialNetworks")}</p>
             <div className="flex gap-3">
                 <Button
-                    className="size-[50px] rounded-full bg-[#25ba9e] p-3 transition-all duration-300 hover:scale-110 hover:bg-[#389181]"
+                    className="size-[50px] rounded-full bg-[#00b4d8] p-3 transition-all duration-300 hover:scale-110 hover:bg-[#48cae4]"
                     onClick={() => signIn("google", { redirectTo: "/profile" })}
                     disabled={isLoading}
                     type="button"
@@ -124,7 +124,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                     <Icons.google />
                 </Button>
                 <Button
-                    className="size-[50px] rounded-full bg-[#25ba9e] p-0 transition-all duration-300 hover:scale-110 hover:bg-[#389181]"
+                    className="size-[50px] rounded-full bg-[#00b4d8] p-0 transition-all duration-300 hover:scale-110 hover:bg-[#48cae4]"
                     onClick={() => signIn("github", { redirectTo: "/profile" })}
                     disabled={isLoading}
                     type="button"
@@ -140,7 +140,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex h-full w-full flex-col justify-between space-y-6 text-black"
+                    className="flex h-full w-full flex-col justify-between space-y-6 text-white"
                 >
                     <FormField
                         control={form.control}
@@ -180,6 +180,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                             type="button"
                             variant="outline"
                             onClick={() => setVisible(!visible)}
+                            className="text-black"
                         >
                             {visible ? <Eye /> : <EyeOff />}
                         </Button>
@@ -214,7 +215,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                     )}
 
                     <Button
-                        className="w-full bg-[#25ba9e] hover:bg-[#389181]"
+                        className="w-full bg-[#00b4d8] hover:bg-[#48cae4]"
                         type="submit"
                         disabled={isLoading}
                     >
@@ -228,7 +229,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                     : `${t("doNotHaveAccount")} `}
                 <Link
                     href={variant === "register" ? "/login" : "/register"}
-                    className="text-[#25ba9e] underline"
+                    className="text-[#48cae4] underline"
                 >
                     {variant === "register"
                         ? t("loginHere")
