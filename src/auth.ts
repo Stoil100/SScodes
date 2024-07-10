@@ -60,7 +60,6 @@ export const {
             );
             // This event is triggered when a new user is created
             // You can add additional logic here if needed
-            console.log('New user created:', user);
         },
     },
 });

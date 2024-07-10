@@ -55,6 +55,7 @@ export const ProjectsForm = () => {
 
             const data = await response.json();
             console.log(data);
+            form.reset();
         } catch (error) {
             console.error('Error submitting form:', error);
         }
