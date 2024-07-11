@@ -4,12 +4,18 @@ import "./globals.css";
 import { getMessages } from "next-intl/server";
 import { Navigation } from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
+import { Inter as FontSans, Raleway, Nunito } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { ParallaxProvider } from "@/components/Providers";
 export const metadata: Metadata = {
     title: "Stoil Portfolio",
     description: "",
     // icons: [{ rel: 'icon', url: Favicon.src }],
 };
+const nunito = Nunito({
+    subsets: ["latin"],
+    variable: "--font-raleway",
+});
 
 export default async function LocaleLayout({
     children,
@@ -24,11 +30,18 @@ export default async function LocaleLayout({
             <head />
             <body className="font-sans">
                 <NextIntlClientProvider messages={messages} locale={locale}>
-                    <main className="bg-[#0f0f0f] min-h-screen flex flex-col justify-between">
-                        {/* <Navigation /> */}
-                        {children}
-                        <Footer />
-                    </main>
+                    <ParallaxProvider>
+                        <main
+                            className={cn(
+                                "bg-[#0f0f0f] min-h-screen flex flex-col justify-between",
+                                nunito.className
+                            )}
+                        >
+                            {/* <Navigation /> */}
+                            {children}
+                            <Footer />
+                        </main>
+                    </ParallaxProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

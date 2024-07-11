@@ -1,4 +1,26 @@
 {
+    "Home": {
+        "ProfileSection": {
+            "greeting": "I'm",
+            "name": "Stoil Stoilov",
+            "role": "Frontend web developer & web designer",
+            "contact": "Contact Me"
+        },
+        "AboutSection": {
+            "title": "About",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quaerat neque nam dolor ratione deleniti dolores reprehenderit qui sunt iure, tempora, cupiditate expedita veritatis saepe adipisci voluptatibus molestias repudiandae corporis!"
+        },
+        "SkillsSection": {
+            "title": "My Skills"
+        },
+        "ProjectsSection": {
+            "title": "My Projects"
+        },
+        "ContactSection": {
+            "title": "Contact me",
+            "description": "Please don't hesitate to get in touch if you have any further questions."
+        }
+    },
     "Schemes": {
         "Auth": {
             "headerRegister": "Register your account",
@@ -32,6 +54,36 @@
             "linkPlaceholder": "Enter the link URL",
             "addMoreLinks": "Add more links",
             "preview": "Preview"
+        },
+        "Contact": {
+            "name": {
+                "validation": "Name must be at least 3 characters",
+                "placeholder": "Enter your full name*",
+                "longName": "Name should not exceed 100 characters"
+            },
+            "email": {
+                "validation": "Please enter a valid email address",
+                "placeholder": "Enter your email address*",
+                "longEmail": "Email should not exceed 100 characters"
+            },
+            "location": {
+                "validation": "Location is required",
+                "placeholder": "Select your location*",
+                "locations": {
+                    "Europe": "Europe",
+                    "NA": "North America",
+                    "Asia": "Asia",
+                    "Australia": "Australia",
+                    "Other": "Other"
+                }
+            },
+            "message": {
+                "validation": "Message must be at least 5 characters",
+                "placeholder": "Type your message here*",
+                "longMessage": "Message should not exceed 500 characters"
+            },
+            "submit": "Submit",
+            "form_heading": "Contact me"
         }
     },
     "Common": {
@@ -39,5 +91,16 @@
             "bg": "BG",
             "en": "EN"
         }
+    },
+    "Navigation": {
+        "title": "Stoil's labs"
+    },
+    "Footer": {
+        "title": "Stoil's Labs",
+        "about": "About",
+        "skills": "Skills",
+        "projects": "Projects",
+        "contact": "Contact",
+        "copy": " {year} Stoil's Labs"
     }
 }

@@ -1,4 +1,26 @@
 {
+    "Home": {
+        "ProfileSection": {
+            "greeting": "Аз съм",
+            "name": "Стоил Стоилов",
+            "role": "Фронтенд уеб разработчик & уеб дизайнер",
+            "contact": "Свържете се с мен"
+        },
+        "AboutSection": {
+            "title": "За мен",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quaerat neque nam dolor ratione deleniti dolores reprehenderit qui sunt iure, tempora, cupiditate expedita veritatis saepe adipisci voluptatibus molestias repudiandae corporis!"
+        },
+        "SkillsSection": {
+            "title": "Моите умения"
+        },
+        "ProjectsSection": {
+            "title": "Моите проекти"
+        },
+        "ContactSection": {
+            "title": "Свържете се с мен",
+            "description": "Моля, не се колебайте да се свържете с мен, ако имате допълнителни въпроси."
+        }
+    },
     "Schemes": {
         "Auth": {
             "headerRegister": "Регистрирайте своя профил",
@@ -24,7 +46,44 @@
             "errorMessage": "Грешка"
         },
         "Projects": {
-             
+            "titleRequired": "Заглавието е задължително",
+            "titlePlaceholder": "Въведете заглавието",
+            "descriptionPlaceholder": "Въведете описанието",
+            "imagePlaceholder": "Въведете URL на изображението",
+            "link": "Линк",
+            "linkPlaceholder": "Въведете URL на линка",
+            "addMoreLinks": "Добавете още линкове",
+            "preview": "Преглед"
+        },
+        "Contact": {
+            "name": {
+                "validation": "Името трябва да бъде поне 3 символа",
+                "placeholder": "Въведете вашето пълно име*",
+                "longName": "Името не трябва да надвишава 100 символа"
+            },
+            "email": {
+                "validation": "Моля, въведете валиден имейл адрес",
+                "placeholder": "Въведете вашия имейл адрес*",
+                "longEmail": "Имейлът не трябва да надвишава 100 символа"
+            },
+            "location": {
+                "validation": "Местоположението е задължително",
+                "placeholder": "Изберете вашето местоположение*",
+                "locations": {
+                    "Europe": "Европа",
+                    "NA": "Северна Америка",
+                    "Asia": "Азия",
+                    "Australia": "Австралия",
+                    "Other": "Друго"
+                }
+            },
+            "message": {
+                "validation": "Съобщението трябва да бъде поне 5 символа",
+                "placeholder": "Въведете вашето съобщение тук*",
+                "longMessage": "Съобщението не трябва да надвишава 500 символа"
+            },
+            "submit": "Изпрати",
+            "form_heading": "Свържете се с мен"
         }
     },
     "Common": {
@@ -32,5 +91,16 @@
             "bg": "БГ",
             "en": "АН"
         }
+    },
+    "Navigation": {
+        "title": "Стоил лабс"
+    },
+    "Footer": {
+        "title": "Стоил лабс",
+        "about": "За мен",
+        "skills": "Умения",
+        "projects": "Проекти",
+        "contact": "Контакт",
+        "copy": " {year} Стоил лабс"
     }
 }
