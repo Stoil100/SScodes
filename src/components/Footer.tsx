@@ -10,7 +10,7 @@ export default function Footer() {
     return (
         <footer className="w-full flex flex-col px-8 py-4 bg-gray-900 text-white border-t-2 border-t-sky-500">
             <div className="w-full flex flex-col md:flex-row justify-between items-center py-3">
-                <h2 className="text-xl font-bold">{t("title")}</h2>
+                <h2 className="text-xl font-bold">SScodes</h2>
                 <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-0 items-center">
                     <a href="#about" className="hover:text-sky-500">{t("about")}</a>
                     <a href="#skills" className="hover:text-sky-500">{t("skills")}</a>

@@ -176,7 +176,7 @@ export const ProjectsForm = () => {
                             <h3>Links:</h3>
                             <ul className="list-disc pl-6">
                                 {previewValues.links!.map((link, index) => (
-                                    <li>
+                                    <li key={index}>
                                         <Link
                                             href={link}
                                             className="text-blue-400 text-lg"

@@ -37,7 +37,7 @@ export const Navigation = async () => {
         <header>
             <nav className="flex justify-between items-center w-full px-4 py-4 bg-[#020202] bg-opacity-30 text-white">
                 <Link href="/" className="text-3xl">
-                    Stoil's labs
+                    SScodes
                 </Link>
                 {session?.user ? (
                     <div className="flex items-center justify-center gap-4">
