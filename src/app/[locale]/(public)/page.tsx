@@ -38,13 +38,14 @@ const AboutSection: React.FC = () => {
     const t = useTranslations("Home.AboutSection");
 
     return (
-        <section id="about" className="text-white lg:px-20 px-5 min-h-[50vh] flex justify-center flex-col gap-4">
+        <section
+            id="about"
+            className="text-white lg:px-20 px-5 min-h-[50vh] flex justify-center flex-col gap-4"
+        >
             <h2 className="text-5xl font-bold">{t("title")}</h2>
             <div className="flex gap-3">
                 <hr className="w-16 border-2 rounded border-[#00b4d8] mt-4" />
-                <p className="text-2xl">
-                    {t("description")}
-                </p>
+                <p className="text-2xl">{t("description")}</p>
             </div>
         </section>
     );
@@ -53,7 +54,10 @@ const SkillsSection: React.FC = () => {
     const t = useTranslations("Home.SkillsSection");
 
     return (
-        <section id="skills" className="min-h-screen w-full flex items-center overflow-hidden flex-col pb-20 justify-around text-white bg-gradient-to-b from-[#0f0f0f] to-[#023e8a]">
+        <section
+            id="skills"
+            className="min-h-screen w-full flex items-center overflow-hidden flex-col pb-20 justify-around text-white bg-gradient-to-b from-[#0f0f0f] to-[#023e8a]"
+        >
             <h1 className="text-7xl font-bold mb-10">{t("title")}</h1>
             <div className="relative flex items-center md:w-80 md:h-80 sm:h-60 sm:w-60 h-40 w-40 justify-center">
                 <Image
@@ -102,9 +106,9 @@ const ProjectsSection: React.FC = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch('/api/projects');
+                const response = await fetch("/api/projects");
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error("Network response was not ok");
                 }
                 const data = await response.json();
                 setProjects(data.projects);
@@ -117,7 +121,10 @@ const ProjectsSection: React.FC = () => {
     }, []);
 
     return (
-        <section id="projects" className="flex min-h-screen flex-col justify-between bg-[#023e8a] w-full">
+        <section
+            id="projects"
+            className="flex min-h-screen flex-col justify-between bg-[#023e8a] w-full"
+        >
             <div className="m-auto flex max-w-5xl flex-col items-center justify-center gap-6 px-4 py-8 text-center md:h-1/2 md:px-40">
                 <h1 className="text-5xl font-bold uppercase text-white md:text-7xl">
                     {t("title")}
@@ -157,14 +164,15 @@ const ContactSection: React.FC = () => {
                 { image: "/home/backgrounds/contact.jpg", speed: -20 },
                 {
                     children: (
-                        <section id="contact" className="absolute inset-0 flex h-full w-full flex-wrap items-center justify-center md:justify-around gap-4 bg-slate-200/60 px-4 md:px-20 py-4">
+                        <section
+                            id="contact"
+                            className="absolute inset-0 flex h-full w-full flex-wrap items-center justify-center md:justify-around gap-4 bg-slate-200/60 px-4 md:px-20 py-4"
+                        >
                             <div className="max-w-xl text-center md:text-left backdrop-blur-sm px-4 py-2 rounded-xl">
                                 <h1 className="text-5xl md:text-8xl border-b-4 border-[#48cae4] mb-4">
                                     {t("title")}
                                 </h1>
-                                <h5 className="text-3xl">
-                                    {t("description")}
-                                </h5>
+                                <h5 className="text-3xl">{t("description")}</h5>
                             </div>
                             <ContactForm />
                         </section>

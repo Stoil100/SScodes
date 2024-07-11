@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials"
+import Credentials from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "./lib/mongodb";
 import { ObjectId } from "mongodb";
@@ -28,7 +28,7 @@ export const {
             credentials: {
                 email: {},
                 password: {},
-              },
+            },
         }),
     ],
     secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
@@ -54,8 +54,8 @@ export const {
         async createUser({ user }) {
             const client = await clientPromise;
             const db = client.db();
-            await db.collection('users').updateOne(
-                { _id: new ObjectId(user.id) },  // Convert string ID to ObjectId
+            await db.collection("users").updateOne(
+                { _id: new ObjectId(user.id) }, // Convert string ID to ObjectId
                 { $set: { admin: false } }
             );
             // This event is triggered when a new user is created
