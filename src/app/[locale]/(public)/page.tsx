@@ -170,7 +170,7 @@ const ContactSection: React.FC = () => {
                     ),
                 },
             ]}
-            className="min-h-[80vh] "
+            className="xl:min-h-[80vh] min-h-[130vh] "
         />
     );
 };
