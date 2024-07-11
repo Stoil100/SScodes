@@ -33,7 +33,7 @@ export default async function LocaleLayout({
                     <ParallaxProvider>
                         <main
                             className={cn(
-                                "bg-[#0f0f0f] min-h-screen flex flex-col justify-between",
+                                "bg-[#0f0f0f] min-h-screen flex flex-col justify-between scroll-smooth",
                                 nunito.className
                             )}
                         >

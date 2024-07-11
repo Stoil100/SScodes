@@ -18,17 +18,18 @@ const ProfileSection: React.FC = () => {
         <section className="shadow-lg bg-[#141414] text-white h-screen flex flex-col items-center justify-center w-full">
             <div className="space-y-4">
                 <h1 className="text-7xl font-bold">
-                    {t("greeting")} <span className="text-[#00b4d8]">{t("name")}</span>
+                    {t("greeting")}{" "}
+                    <span className="text-[#00b4d8]">{t("name")}</span>
                 </h1>
-                <p className="text-2xl capitalize">
-                    {t("role")}
-                </p>
-                <Button
-                    variant="outline"
-                    className="bg-transparent border-4 border-[#00b4d8] text-[#00b4d8] hover:bg-[#0077b6]/50 hover:text-white font-bold text-xl py-5"
-                >
-                    {t("contact")}
-                </Button>
+                <p className="text-2xl capitalize">{t("role")}</p>
+                <a href="#contact">
+                    <Button
+                        variant="outline"
+                        className="bg-transparent border-4 border-[#00b4d8] text-[#00b4d8] hover:bg-[#0077b6]/50 hover:text-white font-bold text-xl py-5"
+                    >
+                        {t("contact")}
+                    </Button>
+                </a>
             </div>
         </section>
     );
@@ -135,7 +136,7 @@ const ProjectsSection: React.FC = () => {
                             src={project.image}
                             className="h-full w-full object-cover"
                         />
-                        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-lime-600/50 text-white opacity-0 backdrop-blur-sm transition-opacity hover:opacity-100">
+                        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-gray-600/50 text-white opacity-0 backdrop-blur-sm transition-opacity hover:opacity-100">
                             <h4 className="text-center text-5xl">
                                 {project.title}
                             </h4>
