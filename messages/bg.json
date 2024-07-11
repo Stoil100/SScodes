@@ -8,7 +8,7 @@
         },
         "AboutSection": {
             "title": "За мен",
-            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quaerat neque nam dolor ratione deleniti dolores reprehenderit qui sunt iure, tempora, cupiditate expedita veritatis saepe adipisci voluptatibus molestias repudiandae corporis!"
+            "description": "Здравейте! Аз съм Стоил Стоилов, страстен Frontend разработчик с усет към създаването на динамични и адаптивни уеб приложения. Специализирайки в Next.js, React, TypeScript, Firebase, Tailwind CSS, MongoDB и основите на HTML и CSS, вдъхвам живот на идеите в мрежата с ефективност и прецизност."
         },
         "SkillsSection": {
             "title": "Моите умения"
