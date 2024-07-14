@@ -15,7 +15,7 @@ const ProfileSection: React.FC = () => {
     const t = useTranslations("Home.ProfileSection");
 
     return (
-        <section className="shadow-lg bg-[#141414] text-white h-screen flex flex-col items-center justify-center w-full">
+        <section className="shadow-lg bg-[#141414] text-white h-screen px-4 flex flex-col items-center justify-center w-full">
             <div className="space-y-4">
                 <h1 className="text-7xl font-bold">
                     {t("greeting")}{" "}
@@ -50,6 +50,15 @@ const AboutSection: React.FC = () => {
         </section>
     );
 };
+const icons = [
+    "/home/spinner/next.png",
+    "/home/spinner/typescript.png",
+    "/home/spinner/tailwind.png",
+    "/home/spinner/node.png",
+    "/home/spinner/firebase.png",
+    "/home/spinner/csharp.png",
+    "/home/spinner/git.png",
+];
 const SkillsSection: React.FC = () => {
     const t = useTranslations("Home.SkillsSection");
 
@@ -195,13 +204,3 @@ export default function Home() {
         </main>
     );
 }
-
-const icons = [
-    "/home/spinner/next.png",
-    "/home/spinner/typescript.png",
-    "/home/spinner/tailwind.png",
-    "/home/spinner/node.png",
-    "/home/spinner/firebase.png",
-    "/home/spinner/csharp.png",
-    "/home/spinner/git.png",
-];

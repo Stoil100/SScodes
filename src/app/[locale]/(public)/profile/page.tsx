@@ -22,7 +22,7 @@ export default async function ProfilePage() {
                         <ProjectsForm />
                     </section>
                 ) : (
-                    <div>
+                    <div className="text-white">
                         <p>Well, there was no point in that... or was there?</p>
                         <form
                             action={async () => {
