@@ -2,18 +2,15 @@
 import { Project } from "@/models/Project";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ProjectPage({ params }: { params: { id: string } }) {
     const [project, setProject] = useState<Project | null>(null);
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const response = await fetch(`/api/projects/${params.id}`);
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const data = await response.json();
-                setProject(data.project);
+                const response = await axios.get(`/api/projects/${params.id}`);
+                setProject(response.data.project);
             } catch (err) {
                 console.log(err);
             }

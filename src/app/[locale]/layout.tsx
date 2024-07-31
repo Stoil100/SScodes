@@ -6,7 +6,7 @@ import { Navigation } from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Inter as FontSans, Raleway, Nunito } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { ParallaxProvider } from "@/components/Providers";
+import { ParallaxProvider, QueryProvider } from "@/components/Providers";
 export const metadata: Metadata = {
     title: "Stoil Portfolio",
     description: "",
@@ -30,18 +30,20 @@ export default async function LocaleLayout({
             <head />
             <body className="font-sans">
                 <NextIntlClientProvider messages={messages} locale={locale}>
-                    <ParallaxProvider>
-                        <main
-                            className={cn(
-                                "bg-[#0f0f0f] min-h-screen flex flex-col justify-between scroll-smooth",
-                                nunito.className
-                            )}
-                        >
-                            {/* <Navigation /> */}
-                            {children}
-                            <Footer />
-                        </main>
-                    </ParallaxProvider>
+                    <QueryProvider>
+                        <ParallaxProvider>
+                            <main
+                                className={cn(
+                                    "bg-[#0f0f0f] min-h-screen flex flex-col justify-between scroll-smooth",
+                                    nunito.className
+                                )}
+                            >
+                                {/* <Navigation /> */}
+                                {children}
+                                <Footer />
+                            </main>
+                        </ParallaxProvider>
+                    </QueryProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

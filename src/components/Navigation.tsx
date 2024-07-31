@@ -1,19 +1,16 @@
-import React from "react";
 import { auth, signOut } from "@/auth";
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { LogIn, LogOut, Menu, UserRound } from "lucide-react";
-import LanguageSwitch from "./LanguageSwitch";
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
+import { LogIn, LogOut, Menu, UserRound } from "lucide-react";
+import Link from "next/link";
+import LanguageSwitch from "./LanguageSwitch";
+import { Button } from "./ui/button";
 
 export function SignOut() {
     return (

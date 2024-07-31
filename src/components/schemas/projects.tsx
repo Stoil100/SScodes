@@ -10,15 +10,14 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import line from "next-auth/providers/line";
+import axios from "axios";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 
 export const ProjectsForm = () => {
     const [bValue, setBValue] = useState(false);
@@ -45,21 +44,19 @@ export const ProjectsForm = () => {
     };
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await fetch('/api/projects', {
-                method: 'POST',
+            const response = await axios.post("/api/projects", values, {
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values),
             });
 
-            const data = await response.json();
             setPreviewValues(undefined);
             form.reset();
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error("Error submitting form:", error);
         }
     };
+
     return (
         <div className="h-full w-full flex justify-around items-center px-10 flex-wrap space-y-6">
             <Form {...form}>

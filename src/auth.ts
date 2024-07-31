@@ -56,11 +56,9 @@ export const {
             const client = await clientPromise;
             const db = client.db();
             await db.collection("users").updateOne(
-                { _id: new ObjectId(user.id) }, // Convert string ID to ObjectId
+                { _id: new ObjectId(user.id) },
                 { $set: { admin: false } }
             );
-            // This event is triggered when a new user is created
-            // You can add additional logic here if needed
         },
     },
 });

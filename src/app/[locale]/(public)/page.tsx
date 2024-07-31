@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 // import { FaReact, FaNodeJs, FaCss3Alt, FaHtml5, FaJs, FaGit, FaNpm } from 'react-icons/fa';
 import { UserRound } from "lucide-react";
 import Image from "next/image";
@@ -115,12 +116,8 @@ const ProjectsSection: React.FC = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch("/api/projects");
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const data = await response.json();
-                setProjects(data.projects);
+                const response = await axios.get("/api/projects");
+                setProjects(response.data.projects);
             } catch (error) {
                 console.log(error);
             }

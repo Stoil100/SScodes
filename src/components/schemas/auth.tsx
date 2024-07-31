@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import axios from "axios";
 
 type FormVariant = {
     variant: "register" | "login";
@@ -68,21 +69,24 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
         setIsLoading(true);
         try {
             if (variant === "register") {
-                const response = await fetch("/api/auth/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
+                try {
+                    const response = await axios.post("/api/auth/register", {
                         email: values.email,
                         password: values.password,
                         name: values.email.split("@")[0], // Assuming name is part of the email
-                    }),
-                });
-
-                if (!response.ok) {
-                    const data = await response.json();
-                    setError(data.message || "An error occurred");
+                    });
+    
+                    if (response.status !== 200) {
+                        setError(response.data.message || "An error occurred");
+                        setIsLoading(false);
+                        return;
+                    }
+                } catch (error) {
+                    if (axios.isAxiosError(error) && error.response) {
+                        setError(error.response.data.message || "An error occurred");
+                    } else {
+                        setError("An error occurred");
+                    }
                     setIsLoading(false);
                     return;
                 }
@@ -92,7 +96,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                     email: values.email,
                     password: values.password,
                 });
-
+    
                 if (result?.error) {
                     setError(result.error);
                     setIsLoading(false);
@@ -102,6 +106,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
             router.push("/");
         } catch (error) {
             console.error("Error:", error);
+            setError("An error occurred");
         }
         setIsLoading(false);
     };

@@ -1,11 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { usePathname, useRouter } from "./navigationSetup";
-import { useLocale, useTranslations } from "next-intl";
-import { Languages } from "lucide-react";
-import clsx from "clsx";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
+import { useLocale, useTranslations } from "next-intl";
+import { usePathname, useRouter } from "./navigationSetup";
 
 const languages = ["en", "bg"] as const;
 type Language = (typeof languages)[number];
