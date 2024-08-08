@@ -1,16 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
-// import { FaReact, FaNodeJs, FaCss3Alt, FaHtml5, FaJs, FaGit, FaNpm } from 'react-icons/fa';
-import { UserRound } from "lucide-react";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import axios from "axios";
+import React from "react";
 import { ContactForm } from "@/components/schemas/contact";
-import { Parallax, ParallaxBanner } from "react-scroll-parallax";
+import { Button } from "@/components/ui/button";
 import { Projects } from "@/models/Project";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import Link from "next/link";
+import { ParallaxBanner } from "react-scroll-parallax";
 
 const ProfileSection: React.FC = () => {
     const t = useTranslations("Home.ProfileSection");
@@ -110,23 +108,31 @@ const SkillsSection: React.FC = () => {
 
 const ProjectsSection: React.FC = () => {
     const t = useTranslations("Home.ProjectsSection");
-    const [projects, setProjects] = useState<Projects>([]);
-    const [error, setError] = useState(null);
+    const fetchProjects = async (): Promise<Projects> => {
+        try {
+            const { data } = await axios.get("/api/projects");
+            return data.projects;
+        } catch (error) {
+            throw new Error('Error fetching projects');
+        }
+    };
+    const { data: projects, error, isLoading, isError } = useQuery<Projects, Error>({
+        queryKey: ["projects"],
+        queryFn: fetchProjects,
+        staleTime: 60000, // 1 minute
+        retry: 2,
+    });
 
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const response = await axios.get("/api/projects");
-                setProjects(response.data.projects);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+   
+    if (isLoading) {
+        return <span>Loading...</span>;
+    }
 
-        fetchProjects();
-    }, []);
+    if (isError) {
+        return <span>Error: {error.message}</span>;
+    }
 
-    return (
+     return (
         <section
             id="projects"
             className="flex min-h-screen flex-col justify-between bg-[#023e8a] w-full"
@@ -138,15 +144,16 @@ const ProjectsSection: React.FC = () => {
                 <span className="mb-4 block h-2 w-1/3 bg-blue-700"></span>
             </div>
 
-            <div className="flex  w-full flex-col md:flex-row ">
-                {projects.map((project) => (
+            <div className="flex w-full flex-col md:flex-row">
+                {projects?.map((project) => (
                     <Link
-                        key={project._id} // Add key prop here
-                        href={project._id}
+                        key={project._id}
+                        href={{ pathname: project._id }}
                         className="relative bg-cover bg-center md:w-1/3"
                     >
                         <img
                             src={project.image}
+                            alt={project.title}
                             className="h-full w-full object-cover"
                         />
                         <div className="absolute top-0 flex h-full w-full items-center justify-center bg-gray-600/50 text-white opacity-0 backdrop-blur-sm transition-opacity hover:opacity-100">

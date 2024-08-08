@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -16,12 +15,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import emailjs from "@emailjs/browser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import emailjs from "@emailjs/browser";
 
 export const ContactForm = () => {
     const t = useTranslations("Schemes.Contact");
@@ -50,7 +48,6 @@ export const ContactForm = () => {
         },
     });
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
         await emailjs.send(
             process.env.NEXT_PUBLIC_SERVICE_ID!,
             process.env.NEXT_PUBLIC_TEMPLATE_ID!,

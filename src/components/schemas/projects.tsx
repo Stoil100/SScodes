@@ -1,4 +1,3 @@
-// app/profile/page.tsx
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -20,16 +20,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const ProjectsForm = () => {
-    const [bValue, setBValue] = useState(false);
     const t = useTranslations("Schemes.Projects");
+    const [bValue, setBValue] = useState(false);
+    const [previewValues, setPreviewValues] =
+    useState<z.infer<typeof formSchema>>();
     const formSchema = z.object({
         title: z.string({ message: t("titleRequired") }),
         description: z.string().optional(),
         image: z.string().url().optional(),
         links: z.array(z.string().url()).optional(),
     });
-    const [previewValues, setPreviewValues] =
-        useState<z.infer<typeof formSchema>>();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,22 +40,34 @@ export const ProjectsForm = () => {
             links: [""],
         },
     });
+
+    const projectsMutation = useMutation({
+        mutationFn: async (values: z.infer<typeof formSchema>) => {
+            try {
+                const response = await axios.post('/api/projects', values, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                return response.data;
+            } catch (error: any) {
+                throw new Error(error.response?.data?.message || 'Error submitting project');
+            }
+        },
+    });
     const onPreview = async (values: z.infer<typeof formSchema>) => {
         setPreviewValues(values);
     };
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        try {
-            const response = await axios.post("/api/projects", values, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            setPreviewValues(undefined);
-            form.reset();
-        } catch (error) {
-            console.error("Error submitting form:", error);
-        }
+        projectsMutation.mutate(values, {
+            onSuccess: () => {
+                setPreviewValues(undefined);
+                form.reset();
+            },
+            onError: (error) => {
+                console.error("Error submitting form:", error);
+            },
+        });
     };
 
     return (

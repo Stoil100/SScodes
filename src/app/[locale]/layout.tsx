@@ -1,12 +1,11 @@
+import Footer from "@/components/Footer";
+import { ParallaxProvider, QueryProvider } from "@/components/Providers";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import "./globals.css";
 import { getMessages } from "next-intl/server";
-import { Navigation } from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { Inter as FontSans, Raleway, Nunito } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { ParallaxProvider, QueryProvider } from "@/components/Providers";
+import { Nunito } from "next/font/google";
+import "./globals.css";
 export const metadata: Metadata = {
     title: "Stoil Portfolio",
     description: "",
