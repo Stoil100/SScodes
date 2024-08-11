@@ -1,4 +1,4 @@
-import AuthForm from "@/components/schemas/auth";
+import AuthForm from "@/components/forms/auth";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 

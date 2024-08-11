@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import React from "react";
-import { ContactForm } from "@/components/schemas/contact";
+import { ContactForm } from "@/components/forms/contact";
 import { Button } from "@/components/ui/button";
 import { Projects } from "@/models/Project";
 import { useQuery } from "@tanstack/react-query";

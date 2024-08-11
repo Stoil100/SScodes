@@ -1,6 +1,6 @@
 // app/profile/page.tsx
 import { auth, signOut } from "@/auth";
-import { ProjectsForm } from "@/components/schemas/projects";
+import { ProjectsForm } from "@/components/forms/projects";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
