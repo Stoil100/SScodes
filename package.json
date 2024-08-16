@@ -17,6 +17,7 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^5.51.21",
+    "@uploadthing/react": "^6.7.2",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
@@ -32,6 +33,7 @@
     "react-scroll-parallax": "^3.4.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "uploadthing": "^6.13.2",
     "use-dehydrated-state": "^0.1.0",
     "zod": "^3.23.8"
   },

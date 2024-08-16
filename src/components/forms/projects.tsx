@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ProjectsSchema } from "../schemas/projects";
+import { UploadDropzone } from "../InputUpload";
 
 export const ProjectsForm = () => {
     const t = useTranslations("Schemes.Projects");
@@ -26,6 +27,7 @@ export const ProjectsForm = () => {
     const [previewValues, setPreviewValues] =
         useState<z.infer<typeof formSchema>>();
     const formSchema = ProjectsSchema(t);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,11 +41,18 @@ export const ProjectsForm = () => {
     const projectsMutation = useMutation({
         mutationFn: async (values: z.infer<typeof formSchema>) => {
             try {
-                const response = await axios.post("/api/projects", values, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                
+                // Send the project data as JSON
+                const response = await axios.post(
+                    "/api/projects",
+                    values,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+
                 return response.data;
             } catch (error: any) {
                 throw new Error(
@@ -52,9 +61,11 @@ export const ProjectsForm = () => {
             }
         },
     });
+
     const onPreview = async (values: z.infer<typeof formSchema>) => {
         setPreviewValues(values);
     };
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         projectsMutation.mutate(values, {
             onSuccess: () => {
@@ -113,9 +124,29 @@ export const ProjectsForm = () => {
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <FormControl>
-                                    <Input
-                                        placeholder={t("imagePlaceholder")}
-                                        {...field}
+                                    {/* <Input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            if (e.target.files) {
+                                                form.setValue(
+                                                    "image",
+                                                    e.target.files[0]
+                                                );
+                                            }
+                                        }}
+                                    /> */}
+                                    <UploadDropzone
+                                        endpoint={"imageUploader"}
+                                        onClientUploadComplete={(url) => {
+                                            form.setValue(
+                                                "image",
+                                                url?.[0].url
+                                            );
+                                        }}
+                                        onUploadError={(error) => {
+                                            console.log(error);
+                                        }}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -177,7 +208,7 @@ export const ProjectsForm = () => {
                         <h1 className="text-4xl text-center">
                             {previewValues.title}
                         </h1>
-                        <img src={previewValues.image!} />
+                        <img src={previewValues.image!.name} />
                         <p className="text-2xl">{previewValues.description!}</p>
                         <div>
                             <h3>Links:</h3>

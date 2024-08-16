@@ -17,16 +17,19 @@ export async function GET(req: NextRequest) {
         );
     }
 }
-
 export async function POST(req: NextRequest) {
     try {
         const client = await clientPromise;
         const db = client.db("portfolio");
-        const body = await req.json();
 
-        const { title, image, links, description } = body;
+        const { title, description, image, links } = await req.json();
 
-        const newProject = { title, image, links, description };
+        const newProject = {
+            title,
+            description,
+            image,
+            links,
+        };
 
         await db.collection("projects").insertOne(newProject);
 
