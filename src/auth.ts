@@ -26,13 +26,18 @@ export const {
                 .NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
         }),
         CredentialsProvider({
-            name: "login",
             credentials: {
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" },
             },
         }),
     ],
+    pages: {
+        signIn: "/login",
+    },
+    session:{
+        strategy: "jwt",
+    },
     secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
