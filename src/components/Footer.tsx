@@ -3,6 +3,7 @@
 import React from "react";
 import LanguageSwitch from "./LanguageSwitch";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function Footer() {
     const t = useTranslations("Footer");
@@ -10,7 +11,7 @@ export default function Footer() {
     return (
         <footer className="w-full flex flex-col px-8 py-4 bg-gray-900 text-white border-t-2 border-t-sky-500">
             <div className="w-full flex flex-col md:flex-row justify-between items-center py-3">
-                <h2 className="text-xl font-bold">SScodes</h2>
+                <Link href="/" className="text-xl font-bold">SScodes</Link>
                 <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-4 md:mt-0 items-center">
                     <a href="#about" className="hover:text-sky-500">
                         {t("about")}
