@@ -41,8 +41,6 @@ export const ProjectsForm = () => {
     const projectsMutation = useMutation({
         mutationFn: async (values: z.infer<typeof formSchema>) => {
             try {
-                
-                // Send the project data as JSON
                 const response = await axios.post(
                     "/api/projects",
                     values,
@@ -124,19 +122,8 @@ export const ProjectsForm = () => {
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <FormControl>
-                                    {/* <Input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={(e) => {
-                                            if (e.target.files) {
-                                                form.setValue(
-                                                    "image",
-                                                    e.target.files[0]
-                                                );
-                                            }
-                                        }}
-                                    /> */}
                                     <UploadDropzone
+                                    className="border-gray-400 border-2 bg-gray-500/10"
                                         endpoint={"imageUploader"}
                                         onClientUploadComplete={(url) => {
                                             form.setValue(
