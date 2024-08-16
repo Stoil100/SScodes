@@ -9,11 +9,11 @@ export default async function ProfilePage() {
     if (!session) {
         redirect("/login");
     }
+    console.log(session.user!.admin);
 
     return (
         <main className="w-full flex justify-center items-center px-4 py-6">
             {
-                //@ts-ignore
                 session.user!.admin! ? (
                     <section className="w-full space-y-6">
                         <h2 className="text-center text-6xl font-bold text-white">

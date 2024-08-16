@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "./lib/mongodb";
 import { ObjectId } from "mongodb";
@@ -25,10 +25,11 @@ export const {
             clientSecret: process.env
                 .NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
         }),
-        Credentials({
+        CredentialsProvider({
+            name: "login",
             credentials: {
-                email: {},
-                password: {},
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" },
             },
         }),
     ],
@@ -39,16 +40,24 @@ export const {
             return true;
         },
         async session({ session, user, token }) {
-            // Add additional user information to session object
-            session.user.id = user.id;
-            return session;
+            if (token._id && session.user) {
+                session.user.id = token._id as string
+                session.user.name = token.name as string
+                session.user.email = token.email as string
+                session.user.admin = token.admin as boolean
+              }
+              return session
         },
         async jwt({ token, user, account, profile }) {
-            // Add additional information to JWT token
-            if (user) {
-                token.id = user.id;
+            // if (!token.email) return token
+            if (user){
+                token._id = user.id
+                token.name = user.name
+                token.email = user.email
+                token.picture = user.image
+                token.admin =  user.admin
             }
-            return token;
+            return token
         },
     },
     events: {
