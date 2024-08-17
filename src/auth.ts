@@ -42,12 +42,10 @@ export const {
                 if (!user || !user._id) {
                     throw new Error("No user found with the email");
                 }
-                console.log(user);
                 const isValid = await compare(
                     password as string,
                     user.password
                 );
-                console.log(isValid)
                 if (!isValid) return null;
                 return {
                     id: user._id.toString(),
@@ -73,7 +71,6 @@ export const {
             const email=credentials!.email
               if (account?.provider === "credentials" && user.id) {
                 const user = await db.collection("users").findOne({ email });
-                console.log(user)
                 if (!user) return false
               }
         

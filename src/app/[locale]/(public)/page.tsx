@@ -113,17 +113,21 @@ const ProjectsSection: React.FC = () => {
             const { data } = await axios.get("/api/projects");
             return data.projects;
         } catch (error) {
-            throw new Error('Error fetching projects');
+            throw new Error("Error fetching projects");
         }
     };
-    const { data: projects, error, isLoading, isError } = useQuery<Projects, Error>({
+    const {
+        data: projects,
+        error,
+        isLoading,
+        isError,
+    } = useQuery<Projects, Error>({
         queryKey: ["projects"],
         queryFn: fetchProjects,
         staleTime: 60000, // 1 minute
         retry: 2,
     });
 
-   
     if (isLoading) {
         return <span>Loading...</span>;
     }
@@ -132,7 +136,7 @@ const ProjectsSection: React.FC = () => {
         return <span>Error: {error.message}</span>;
     }
 
-     return (
+    return (
         <section
             id="projects"
             className="flex min-h-screen flex-col justify-between bg-[#023e8a] w-full"

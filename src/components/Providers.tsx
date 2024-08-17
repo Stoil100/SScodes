@@ -14,7 +14,7 @@ export function ParallaxProvider({ children }: { children: React.ReactNode }) {
 
 export function QueryProvider({ children }: { children: React.ReactNode }) {
     const [queryClient] = useState(() => new QueryClient());
-    const dehydratedState = dehydrate(queryClient)
+    const dehydratedState = dehydrate(queryClient);
     return (
         <QueryClientProvider client={queryClient}>
             {/* <Hydrate state={dehydratedState}>{children}</Hydrate> */}

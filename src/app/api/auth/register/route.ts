@@ -1,8 +1,7 @@
 // pages/api/auth/register.ts
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/mongodb";
 import { hash } from "bcrypt";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
@@ -27,7 +26,6 @@ export async function POST(req: NextRequest) {
             password: hashedPassword,
             admin: false,
         });
-        
 
         return NextResponse.json({ message: "User created!" }, { status: 201 });
     } catch (error) {

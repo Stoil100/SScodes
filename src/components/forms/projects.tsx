@@ -41,15 +41,11 @@ export const ProjectsForm = () => {
     const projectsMutation = useMutation({
         mutationFn: async (values: z.infer<typeof formSchema>) => {
             try {
-                const response = await axios.post(
-                    "/api/projects",
-                    values,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                const response = await axios.post("/api/projects", values, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
 
                 return response.data;
             } catch (error: any) {
@@ -123,7 +119,7 @@ export const ProjectsForm = () => {
                             <FormItem className="w-full">
                                 <FormControl>
                                     <UploadDropzone
-                                    className="border-gray-400 border-2 bg-gray-500/10"
+                                        className="border-gray-400 border-2 bg-gray-500/10"
                                         endpoint={"imageUploader"}
                                         onClientUploadComplete={(url) => {
                                             form.setValue(

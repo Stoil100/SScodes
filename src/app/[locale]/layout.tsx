@@ -37,7 +37,6 @@ export default async function LocaleLayout({
                                     nunito.className
                                 )}
                             >
-                                {/* <Navigation /> */}
                                 {children}
                                 <Footer />
                             </main>
