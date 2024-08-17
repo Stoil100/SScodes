@@ -10,15 +10,16 @@ import {
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { Eye, EyeOff, Github } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { signIn } from "next-auth/react";
-import { useTranslations } from "next-intl";
-import axios from "axios";
 import { AuthSchema } from "../schemas/auth";
 
 type FormVariant = {
@@ -27,7 +28,7 @@ type FormVariant = {
 
 const AuthForm = ({ variant = "register" }: FormVariant) => {
     const t = useTranslations("Schemes.Auth");
-    const formSchema = AuthSchema(variant,t);
+    const formSchema = AuthSchema(variant, t);
     const [visible, setVisible] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -41,50 +42,68 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        setIsLoading(true);
+    const authUser = async (values: z.infer<typeof formSchema>) => {
         try {
             if (variant === "register") {
-                try {
-                    const response = await axios.post("/api/auth/register", {
-                        email: values.email,
-                        password: values.password,
-                        name: values.email.split("@")[0], // Assuming name is part of the email
-                    });
-    
-                    if (response.status !== 200) {
-                        setError(response.data.message || "An error occurred");
-                        setIsLoading(false);
-                        return;
-                    }
-                } catch (error) {
-                    if (axios.isAxiosError(error) && error.response) {
-                        setError(error.response.data.message || "An error occurred");
-                    } else {
-                        setError("An error occurred");
-                    }
-                    setIsLoading(false);
-                    return;
+                const response = await axios.post("/api/auth/register", {
+                    email: values.email,
+                    password: values.password,
+                    name: values.email.split("@")[0], // Assuming name is part of the email
+                });
+
+                if (response.status !== 201) {
+                    throw new Error(
+                        response.data.message ||
+                            "An error occurred during registration"
+                    );
                 }
+
+                // const result = await signIn("credentials", {
+                //     email: response.data.email,
+                //     password: values.password,
+                //     redirect: false,
+                // });
+
+                const result = await signIn("credentials", {
+                    redirect: false,
+                    email: values.email,
+                    password: values.password,
+                });
+                return result;
             } else {
                 const result = await signIn("credentials", {
                     redirect: false,
                     email: values.email,
                     password: values.password,
                 });
-    
                 if (result?.error) {
-                    setError(result.error);
-                    setIsLoading(false);
-                    return;
+                    throw new Error(result.error);
                 }
+                return result;
             }
-            router.push("/");
-        } catch (error) {
-            console.error("Error:", error);
-            setError("An error occurred");
+        } catch (error: any) {
+            throw new Error(
+                error.message || "An error occurred during authentication"
+            );
         }
-        setIsLoading(false);
+    };
+
+    const authMutatuion = useMutation({
+        mutationFn: (values: z.infer<typeof formSchema>) => authUser(values),
+    });
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsLoading(true);
+        setError(null);
+        authMutatuion.mutate(values, {
+            onSuccess: async () => {
+                router.push("/profile");
+            },
+            onError: (error: any) => {
+                setError(error.message);
+                setIsLoading(false);
+            },
+        });
     };
 
     return (
@@ -121,7 +140,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex h-full w-full flex-col justify-between space-y-6 text-white"
+                    className="flex h-full w-full flex-col justify-between space-y-6 !text-black"
                 >
                     <FormField
                         control={form.control}
