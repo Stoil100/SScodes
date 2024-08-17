@@ -7,7 +7,6 @@ import clientPromise from "./lib/mongodb";
 import { ObjectId } from "mongodb";
 import { compare } from "bcrypt";
 
-
 export const {
     handlers: { GET, POST },
     auth,
@@ -20,7 +19,7 @@ export const {
             clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
             clientSecret: process.env
                 .NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
-                allowDangerousEmailAccountLinking: true
+            allowDangerousEmailAccountLinking: true,
         }),
         GitHubProvider({
             clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
@@ -28,7 +27,7 @@ export const {
                 .NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
         }),
         CredentialsProvider({
-            name: "login",
+            // name: "login",
             credentials: {
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" },
@@ -54,59 +53,61 @@ export const {
                     admin: user.admin,
                     image: user.image,
                 };
-            }
+            },
         }),
     ],
     pages: {
         signIn: "/login",
     },
-    session:{
+    session: {
         strategy: "jwt",
     },
     secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
     callbacks: {
         async signIn({ user, account, profile, credentials }) {
-            const client = await clientPromise;
-            const db = client.db();
-            const email=credentials!.email
-              if (account?.provider === "credentials" && user.id) {
+            if (account?.provider === "credentials" && user.id) {
+                const client = await clientPromise;
+                const db = client.db();
+                const email = credentials!.email;
                 const user = await db.collection("users").findOne({ email });
-                if (!user) return false
-              }
-        
-              return true
+                if (!user) return false;
+            }
+
+            return true;
         },
         async session({ session, user, token }) {
             if (token._id && session.user) {
-                session.user.id = token._id as string
-                session.user.name = token.name as string
-                session.user.email = token.email as string
-                session.user.admin = token.admin as boolean
-                session.user.password = token.password as string
-              }
-              return session
+                session.user.id = token._id as string;
+                session.user.name = token.name as string;
+                session.user.email = token.email as string;
+                session.user.admin = token.admin as boolean;
+                // session.user.password = token.password as string
+            }
+            return session;
         },
         async jwt({ token, user, account, profile }) {
             // if (!token.email) return token
-            if (user){
-                token._id = user.id
-                token.name = user.name
-                token.email = user.email
-                token.picture = user.image
-                token.admin =  user.admin
-                token.password = user.password
+            if (user) {
+                token._id = user.id;
+                token.name = user.name;
+                token.email = user.email;
+                token.picture = user.image;
+                token.admin = user.admin;
+                // token.password = user.password
             }
-            return token
+            return token;
         },
     },
     events: {
         async createUser({ user }) {
             const client = await clientPromise;
             const db = client.db();
-            await db.collection("users").updateOne(
-                { _id: new ObjectId(user.id) },
-                { $set: { admin: false } }
-            );
+            await db
+                .collection("users")
+                .updateOne(
+                    { _id: new ObjectId(user.id) },
+                    { $set: { admin: false } }
+                );
         },
     },
 });
