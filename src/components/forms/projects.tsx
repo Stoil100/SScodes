@@ -23,7 +23,7 @@ import { UploadDropzone } from "../InputUpload";
 
 export const ProjectsForm = () => {
     const t = useTranslations("Schemes.Projects");
-    const [bValue, setBValue] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [previewValues, setPreviewValues] =
         useState<z.infer<typeof formSchema>>();
     const formSchema = ProjectsSchema(t);
@@ -40,6 +40,7 @@ export const ProjectsForm = () => {
 
     const projectsMutation = useMutation({
         mutationFn: async (values: z.infer<typeof formSchema>) => {
+            setIsLoading(true);
             try {
                 const response = await axios.post("/api/projects", values, {
                     headers: {
@@ -65,6 +66,7 @@ export const ProjectsForm = () => {
             onSuccess: () => {
                 setPreviewValues(undefined);
                 form.reset();
+                setIsLoading(false);
             },
             onError: (error) => {
                 console.error("Error submitting form:", error);
@@ -130,6 +132,7 @@ export const ProjectsForm = () => {
                                         onUploadError={(error) => {
                                             console.log(error);
                                         }}
+                                        disabled={isLoading}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -164,9 +167,13 @@ export const ProjectsForm = () => {
                                     className="mt-2 border-2 border-[#0096c7] bg-[#023e8a] w-fit"
                                     onClick={() => {
                                         field.value!.push("");
-                                        setBValue(!bValue);
+                                        setIsLoading(true);
+                                        setTimeout(() => {
+                                            setIsLoading(false);
+                                          }, 200);
                                     }}
                                     type="button"
+                                    disabled={isLoading}
                                 >
                                     {t("addMoreLinks")}
                                 </Button>
@@ -176,7 +183,7 @@ export const ProjectsForm = () => {
                     <Button
                         className="w-full"
                         type="submit"
-                        // disabled={isLoading}
+                        disabled={isLoading}
                     >
                         {t("preview")}
                     </Button>
@@ -191,7 +198,7 @@ export const ProjectsForm = () => {
                         <h1 className="text-4xl text-center">
                             {previewValues.title}
                         </h1>
-                        <img src={previewValues.image!.name} />
+                        <img src={previewValues.image!} />
                         <p className="text-2xl">{previewValues.description!}</p>
                         <div>
                             <h3>Links:</h3>
@@ -214,6 +221,7 @@ export const ProjectsForm = () => {
                         onClick={() => {
                             onSubmit(previewValues);
                         }}
+                        disabled={isLoading}
                     >
                         Upload
                     </Button>

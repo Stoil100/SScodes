@@ -57,13 +57,7 @@ const AuthForm = ({ variant = "register" }: FormVariant) => {
                             "An error occurred during registration"
                     );
                 }
-
-                // const result = await signIn("credentials", {
-                //     email: response.data.email,
-                //     password: values.password,
-                //     redirect: false,
-                // });
-
+                
                 const result = await signIn("credentials", {
                     redirect: false,
                     email: values.email,

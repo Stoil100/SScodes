@@ -27,7 +27,6 @@ export const {
                 .NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
         }),
         CredentialsProvider({
-            // name: "login",
             credentials: {
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" },
@@ -81,19 +80,16 @@ export const {
                 session.user.name = token.name as string;
                 session.user.email = token.email as string;
                 session.user.admin = token.admin as boolean;
-                // session.user.password = token.password as string
             }
             return session;
         },
         async jwt({ token, user, account, profile }) {
-            // if (!token.email) return token
             if (user) {
                 token._id = user.id;
                 token.name = user.name;
                 token.email = user.email;
                 token.picture = user.image;
                 token.admin = user.admin;
-                // token.password = user.password
             }
             return token;
         },
