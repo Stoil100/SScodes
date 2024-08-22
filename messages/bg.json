@@ -21,6 +21,16 @@
             "description": "Моля, не се колебайте да се свържете с мен, ако имате допълнителни въпроси."
         }
     },
+    "Profile": {
+        "uploadProjects": "Качване на проекти:",
+        "manageProjects": "Управление на проекти:",
+        "loadingProjects": "Зареждане на проекти...",
+        "errorFetchingProjects": "Грешка при зареждане на проектите",
+        "delete": "Изтриване",
+        "edit": "Редактиране",
+        "noAccessMessage": "Е, нямаше смисъл от това... или имаше?",
+        "signOut": "Изход"
+      },
     "Schemes": {
         "Auth": {
             "headerRegister": "Регистрирайте своя профил",
@@ -46,6 +56,7 @@
             "errorMessage": "Грешка"
         },
         "Projects": {
+            "values":"Данни:",
             "titleRequired": "Заглавието е задължително",
             "titlePlaceholder": "Въведете заглавието",
             "descriptionPlaceholder": "Въведете описанието",
@@ -53,7 +64,11 @@
             "link": "Линк",
             "linkPlaceholder": "Въведете URL на линка",
             "addMoreLinks": "Добавете още линкове",
-            "preview": "Преглед"
+            "preview": "Преглед",
+            "previewTitle": "Преглед:",
+            "linksTitle": "Връзки",
+            "updateButton": "Актуализиране",
+            "uploadButton": "Качване"
         },
         "Contact": {
             "name": {

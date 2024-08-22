@@ -10,18 +10,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Project } from "@/models/Project";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ProjectsSchema } from "../schemas/projects";
 import { UploadDropzone } from "../InputUpload";
+import { ProjectsSchema } from "../schemas/projects";
 
-export const ProjectsForm = () => {
+type Props = {
+    project?: Project;
+};
+export const ProjectsForm: React.FC<Props> = ({ project }) => {
+    const queryClient = useQueryClient();
     const t = useTranslations("Schemes.Projects");
     const [isLoading, setIsLoading] = useState(false);
     const [previewValues, setPreviewValues] =
@@ -31,10 +36,10 @@ export const ProjectsForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: "",
-            description: "",
-            image: "",
-            links: [""],
+            title: project ? project.title : "",
+            description: project ? project.description : "",
+            image: project ? project.image : "",
+            links: project ? project.links : [""],
         },
     });
 
@@ -42,13 +47,25 @@ export const ProjectsForm = () => {
         mutationFn: async (values: z.infer<typeof formSchema>) => {
             setIsLoading(true);
             try {
-                const response = await axios.post("/api/projects", values, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                return response.data;
+                if (project) {
+                    const response = await axios.put(
+                        `/api/projects/${project._id}`,
+                        values,
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    return response.data;
+                } else {
+                    const response = await axios.post("/api/projects", values, {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    });
+                    return response.data;
+                }
             } catch (error: any) {
                 throw new Error(
                     error.response?.data?.message || "Error submitting project"
@@ -64,6 +81,9 @@ export const ProjectsForm = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         projectsMutation.mutate(values, {
             onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: ["projects"],
+                });
                 setPreviewValues(undefined);
                 form.reset();
                 setIsLoading(false);
@@ -81,7 +101,10 @@ export const ProjectsForm = () => {
                     onSubmit={form.handleSubmit(onPreview)}
                     className="flex h-full w-full flex-col justify-between space-y-6 max-w-xl"
                 >
-                    <h1 className="text-6xl text-white text-center">Values:</h1>
+                    <h1 className="text-6xl text-white text-center">
+                        {" "}
+                        {t("values")}
+                    </h1>
                     <FormField
                         control={form.control}
                         name="title"
@@ -158,6 +181,7 @@ export const ProjectsForm = () => {
                                                     field.value![index] = //@ts-ignore
                                                         event.target.value;
                                                 }}
+                                                value={field.value![index]}
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -170,7 +194,7 @@ export const ProjectsForm = () => {
                                         setIsLoading(true);
                                         setTimeout(() => {
                                             setIsLoading(false);
-                                          }, 200);
+                                        }, 200);
                                     }}
                                     type="button"
                                     disabled={isLoading}
@@ -190,9 +214,9 @@ export const ProjectsForm = () => {
                 </form>
             </Form>
             {previewValues && (
-                <section className="space-y-4">
+                <section className="space-y-4 max-w-xl">
                     <h1 className="text-6xl text-white text-center">
-                        Preview:
+                        {t("previewTitle")}
                     </h1>
                     <div className="text-xl max-w-xl text-white space-y-4">
                         <h1 className="text-4xl text-center">
@@ -201,7 +225,7 @@ export const ProjectsForm = () => {
                         <img src={previewValues.image!} />
                         <p className="text-2xl">{previewValues.description!}</p>
                         <div>
-                            <h3>Links:</h3>
+                            <h3>{t("linksTitle")}:</h3>
                             <ul className="list-disc pl-6">
                                 {previewValues.links!.map((link, index) => (
                                     <li key={index}>
@@ -223,7 +247,7 @@ export const ProjectsForm = () => {
                         }}
                         disabled={isLoading}
                     >
-                        Upload
+                        {project ? t("updateButton") : t("uploadButton")}
                     </Button>
                 </section>
             )}

@@ -1,13 +1,13 @@
 "use client";
-import axios from "axios";
-import React from "react";
 import { ContactForm } from "@/components/forms/contact";
+import { Project } from "@/components/Project";
 import { Button } from "@/components/ui/button";
 import { Projects } from "@/models/Project";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import React from "react";
 import { ParallaxBanner } from "react-scroll-parallax";
 
 const ProfileSection: React.FC = () => {
@@ -149,23 +149,8 @@ const ProjectsSection: React.FC = () => {
             </div>
 
             <div className="flex w-full flex-col md:flex-row">
-                {projects?.map((project) => (
-                    <Link
-                        key={project._id}
-                        href={{ pathname: project._id }}
-                        className="relative bg-cover bg-center md:w-1/3"
-                    >
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                            className="h-full w-full object-cover"
-                        />
-                        <div className="absolute top-0 flex h-full w-full items-center justify-center bg-gray-600/50 text-white opacity-0 backdrop-blur-sm transition-opacity hover:opacity-100">
-                            <h4 className="text-center text-5xl">
-                                {project.title}
-                            </h4>
-                        </div>
-                    </Link>
+                {projects?.map((project, i) => (
+                    <Project {...project} key={i} />
                 ))}
             </div>
         </section>

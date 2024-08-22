@@ -1,7 +1,8 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode, useState } from "react";
 import { ParallaxProvider as ParProvider } from "react-scroll-parallax";
 
 export function ParallaxProvider({ children }: { children: React.ReactNode }) {
@@ -15,4 +16,12 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
             {children}
         </QueryClientProvider>
     );
+}
+
+export default function NextAuthProvider({
+    children,
+}: {
+    children: ReactNode;
+}) {
+    return <SessionProvider>{children}</SessionProvider>;
 }

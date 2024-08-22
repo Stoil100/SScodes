@@ -21,6 +21,16 @@
             "description": "Please don't hesitate to get in touch if you have any further questions."
         }
     },
+    "Profile": {
+        "uploadProjects": "Upload projects:",
+        "manageProjects": "Manage projects:",
+        "loadingProjects": "Loading projects...",
+        "errorFetchingProjects": "Error fetching projects",
+        "delete": "Delete",
+        "edit": "Edit",
+        "noAccessMessage": "Well, there was no point in that... or was there?",
+        "signOut": "Sign Out"
+    },
     "Schemes": {
         "Auth": {
             "headerRegister": "Register your account",
@@ -46,6 +56,7 @@
             "errorMessage": "Error"
         },
         "Projects": {
+            "values":"Values:",
             "titleRequired": "Title is required",
             "titlePlaceholder": "Enter the title",
             "descriptionPlaceholder": "Enter the description",
@@ -53,7 +64,11 @@
             "link": "Link",
             "linkPlaceholder": "Enter the link URL",
             "addMoreLinks": "Add more links",
-            "preview": "Preview"
+            "preview": "Preview",
+            "previewTitle": "Preview:",
+            "linksTitle": "Links",
+            "updateButton": "Update",
+            "uploadButton": "Upload"
         },
         "Contact": {
             "name": {
